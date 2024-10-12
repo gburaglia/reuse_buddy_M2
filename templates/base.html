@@ -18,7 +18,7 @@
     <!-- If you are using ML5 this is where its imported -->
     <script src="https://unpkg.com/ml5@1/dist/ml5.js"></script>  
 
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
   </head>
 
   <body>
@@ -32,6 +32,9 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link {% if active=='interaction_1' %}active {%endif %}" href="{{ url_for('interaction_1')}}">Milestone-1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if active=='interaction_2' %}active {%endif %}" href="{{ url_for('interaction_2')}}">Camera</a>
               </li>
 
               <!-- add more pages to the Navbar here -->

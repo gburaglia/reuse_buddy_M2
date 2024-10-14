@@ -5,33 +5,41 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 text-center">
-                    <h2 class="mt-5">Reduce Buddy</h2>
+                    <h2 class="mt-4">Reduce Buddy</h2>
                     <img src="{{ url_for('video_feed') }}" width="80%">
                         <form method="post" action="{{ url_for('interaction_2') }}">
                             <input type="submit" class="mt-2 btn btn-dark btn-lg btn-block" value="Capture" name="click"/>
                         </form>
+
+                        <h2 class="mt-4">Reduce Buddy Gallery</h2>
+                        <div class="gallery">
+                            <!-- Loop through all images passed from the backend -->
+                            {% if images %}
+                                {% for image in images %}
+                                    <img src="{{ url_for('static', filename='imgs/shots/' + image) }}" alt="Image">
+                                {% endfor %}
+                            {% else %}
+                                <p>Capture an image to display gallery</p>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Only show the Delete button if there are images -->
+                        {% if images %}
+                            <form method="post" action="{{ url_for('interaction_2') }}">
+                                <input type="submit" name="delete" value="Delete All" class="mt-2 btn btn-outline-dark btn-lg btn-block">
+                            </form>               
+                        {% endif %}
+                        
             </div>
-            <div class="col-lg-6">
-                <h2 class="mt-5">Reduce Buddy Gallery</h2>
-                <div class="gallery">
-                    <!-- Loop through all images passed from the backend -->
-                    {% if images %}
-                        {% for image in images %}
-                            <img src="{{ url_for('static', filename='imgs/shots/' + image) }}" alt="Image">
-                        {% endfor %}
-                    {% else %}
-                        <p>Capture an image to display gallery</p>
-                    {% endif %}
+        
+            <div class="col-lg-6 text-center">
+                <div class="d-flex justify-content-center" id="canvas-div">
+            
                 </div>
-                <!-- Only show the Delete button if there are images -->
-                {% if images %}
-                    <form method="post" action="{{ url_for('interaction_2') }}">
-                        <input type="submit" name="delete" value="Delete All" class="mt-2 btn btn-outline-dark btn-lg btn-block">
-                    </form>               
-                {% endif %}
             </div>
         </div>
     </div>
+     
     </body>
-
+    <script src="js/sketch-reuse.js"></script>
 {%endblock%}

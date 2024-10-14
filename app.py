@@ -62,7 +62,7 @@ try:
 except OSError as error:
     pass
 
-camera = cv2.VideoCapture(1)
+camera = cv2.VideoCapture(0) #0 is computer, 1 is connected phone
 
 def update_image_folder():
      # Define the folder where images are stored

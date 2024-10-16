@@ -12,15 +12,8 @@
                         </form>
 
                         <h2 class="mt-4">Image Gallery</h2>
-                        <div class="gallery">
-                            <!-- Loop through all images passed from the backend -->
-                            {% if images %}
-                                {% for image in images %}
-                                    <img src="{{ url_for('display_image', filename=image) }}" alt="Image">
-                                {% endfor %}
-                            {% else %}
-                                <p>Capture an image to display gallery</p>
-                            {% endif %}
+                        <div class="gallery" id="gallery-div">
+                           
                         </div>
                         
                         <!-- Only show the Delete button if there are images -->
@@ -42,7 +35,31 @@
             </div>
         </div>
     </div>
-     
-    </body>
+    <script>
+        // Function to fetch the updated gallery and inject into the gallery-div
+        function updateGallery() {
+            fetch('/update_gallery')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('gallery-div').innerHTML = data;
+                })
+                .catch(error => console.error('Error updating gallery:', error));
+        }
+    
+        // Call the updateGallery function every few seconds
+        setInterval(updateGallery, 10000); // Adjust the interval time as needed
+    </script>
+
+    <script>
+        document.querySelector('input[name="click"]').addEventListener('click', function () {
+            setTimeout(function () {
+                updateGallery();  // Immediately update the gallery after a capture
+            }, 1000);  // Adjust the delay if needed
+        });
+    </script>
+    
+    
     <script src="js/sketch-reuse.js"></script>
+
+    </body>
 {%endblock%}

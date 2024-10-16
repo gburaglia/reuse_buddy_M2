@@ -1,0 +1,7 @@
+{% if images %}
+    {% for image in images %}
+        <img src="{{ url_for('display_image', filename=image) }}" alt="Image" width="80%">
+    {% endfor %}
+{% else %}
+    <p>Capture an image to display the gallery</p>
+{% endif %}

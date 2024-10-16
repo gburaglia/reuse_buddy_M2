@@ -48,7 +48,7 @@ def interaction_2():
             (caption, story) = runModels()
     
     images = update_image_folder()
-    return render_template('camera.html', images=images, story=story,caption=caption)
+    return render_template('camera.html', story=story,caption=caption)
 
 def delete_all_images():
     image_folder = 'static/imgs/shots'
@@ -112,6 +112,12 @@ def gen_frames():  # generate frame by frame from camera
 @app.route('/video_feed')
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/update_gallery')
+def update_gallery():
+    images = update_image_folder()  # Get the updated list of images
+    return render_template('gallery.html', images=images)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

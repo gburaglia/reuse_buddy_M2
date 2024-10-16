@@ -46,6 +46,7 @@ def interaction_2():
             delete_all_images()
         elif request.form.get('last') == 'Use Last Image':
             (caption, story) = runModels()
+    
     images = update_image_folder()
     return render_template('camera.html', images=images, story=story,caption=caption)
 
@@ -60,6 +61,11 @@ def delete_all_images():
             print(f"Error deleting file {f}: {e}")
 
 
+@app.route('/display/<filename>')
+def display_image(filename):
+    print('display_image filename: ' + filename)
+    return redirect(url_for('static', filename='imgs/shots/' + filename))
+
 #make shots directory to save pics
 try:
     os.mkdir('./static/imgs/shots')
@@ -73,6 +79,7 @@ def update_image_folder():
     image_folder = 'static/imgs/shots'
     # List all image filenames in the folder
     images = os.listdir(image_folder)
+    print(images)
     return images
 
 def gen_frames():  # generate frame by frame from camera
@@ -87,8 +94,8 @@ def gen_frames():  # generate frame by frame from camera
                 p = os.path.sep.join(['static/imgs/shots', "shot_{}.png".format(str(now).replace(":",'_'))])
                 p = p.replace(" ","_")
                 cv2.imwrite(p, frame)
-                images = update_image_folder()
-                return render_template('camera.html', images=images)
+                update_image_folder()
+                
             try:
                 ret, buffer = cv2.imencode('.jpg', cv2.flip(frame,1))
                 frame = buffer.tobytes()

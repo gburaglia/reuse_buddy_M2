@@ -32,23 +32,29 @@ def firstObject():
     # List all image filenames in the folder
     images = os.listdir(image_folder)
     images.sort()
-    scenario  = object_detection('static/imgs/shots/' + images[-1])
-    unique_scenario_list = list(set(scenario))
-    object_list = []
-    for item in unique_scenario_list:
-        if(item!="person"):
-            object_list.append(item)
-    if object_list.count > 0:
-        return object_list[0]
+    if(images):
+
+        scenario  = object_detection('static/imgs/shots/' + images[-1])
+        unique_scenario_list = list(set(scenario))
+        object_list = []
+        for item in unique_scenario_list:
+            if(item!="person"):
+                object_list.append(item)
+        if (object_list):
+            return object_list[0]
+        else:
+            return "none"
     else:
-        return "none"
+        return "no image"
 
 def runModels():
-    first_object = firstObject
-    reuse_idea = "No object recognized"
-
-
-    if first_object != "none":
+    first_object = firstObject()
+    reuse_idea = ""
+    if first_object == "none":
+        reuse_idea = "Error: No object recognized"
+    elif first_object == "no image":
+        reuse_idea = "Error: No image submitted, take a picture first!"
+    else:
         msg = {"role": "user", "content": first_object}
         reuse_idea = textGeneration(msg)
 

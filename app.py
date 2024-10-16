@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, Response, redirect, url_for
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
 import os
-from model import runModels
+from reuse_model import runModels
 import cv2
 import datetime
 
@@ -35,6 +35,8 @@ def interaction_1():
 
 @app.route('/camera', methods=['GET','POST'])
 def interaction_2():
+    story=""
+    caption=""
     global camera
     if request.method == 'POST':
         if request.form.get('click') == 'Capture':
@@ -42,8 +44,10 @@ def interaction_2():
             capture=1
         elif request.form.get('delete') == 'Delete All':
             delete_all_images()
+        elif request.form.get('last') == 'Use Last Image':
+            (caption, story) = runModels()
     images = update_image_folder()
-    return render_template('camera.html', images=images)
+    return render_template('camera.html', images=images, story=story,caption=caption)
 
 def delete_all_images():
     image_folder = 'static/imgs/shots'

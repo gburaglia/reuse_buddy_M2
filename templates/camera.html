@@ -16,7 +16,7 @@
                             <!-- Loop through all images passed from the backend -->
                             {% if images %}
                                 {% for image in images %}
-                                    <img src="{{ url_for('static', filename='imgs/shots/' + image) }}" alt="Image">
+                                    <img src="{{ url_for('interaction_2', filename='imgs/shots/' + image) }}" alt="Image">
                                 {% endfor %}
                             {% else %}
                                 <p>Capture an image to display gallery</p>

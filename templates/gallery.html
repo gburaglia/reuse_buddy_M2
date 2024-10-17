@@ -1,7 +1,19 @@
-{% if images %}
+<div>
+    {% if images %}
     {% for image in images %}
         <img src="{{ url_for('display_image', filename=image) }}" alt="Image" width="80%">
     {% endfor %}
-{% else %}
+    {% else %}
     <p>Capture an image to display the gallery</p>
-{% endif %}
+    {% endif %}
+</div>
+<div class="row">
+    {% if images %}
+    <form method="post" action="{{ url_for('interaction_2') }}">
+        <input type="submit" name="delete" value="Delete All" class="mt-2 btn btn-outline-dark btn-lg btn-block">
+    </form>               
+   {% endif %}
+   
+</div>
+ <!-- Only show the Delete button if there are images -->
+ 

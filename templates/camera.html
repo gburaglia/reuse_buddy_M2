@@ -8,7 +8,7 @@
                     <h2 class="mt-4">Reduce Buddy</h2>
                     <img src="{{ url_for('video_feed') }}" width="80%">
                         <form method="post" action="{{ url_for('interaction_2') }}">
-                            <input type="submit" class="mt-2 btn btn-dark btn-lg btn-block" value="Capture" name="click"/>
+                            <input id="captureBtn" type="submit" class="mt-2 btn btn-dark btn-lg btn-block" value="Capture" name="click"/>
                         </form>
 
                         <h2 class="mt-4">Image Gallery</h2>
@@ -16,12 +16,6 @@
                            
                         </div>
                         
-                        <!-- Only show the Delete button if there are images -->
-                        {% if images %}
-                            <form method="post" action="{{ url_for('interaction_2') }}">
-                                <input type="submit" name="delete" value="Delete All" class="mt-2 btn btn-outline-dark btn-lg btn-block">
-                            </form>               
-                        {% endif %}
                         
             </div>
         
@@ -47,18 +41,9 @@
         }
     
         // Call the updateGallery function every few seconds
-        setInterval(updateGallery, 10000); // Adjust the interval time as needed
+        setInterval(updateGallery, 1000); // Adjust the interval time as needed
     </script>
-
-    <script>
-        document.querySelector('input[name="click"]').addEventListener('click', function () {
-            setTimeout(function () {
-                updateGallery();  // Immediately update the gallery after a capture
-            }, 1000);  // Adjust the delay if needed
-        });
-    </script>
-    
-    
+   
     <script src="js/sketch-reuse.js"></script>
 
     </body>

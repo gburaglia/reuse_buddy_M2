@@ -3,9 +3,10 @@
 
 <body>
     <div class="container">
+        <h1 class="mt-4 text-center">Reuse Buddy</h1>
         <div class="row">
             <div class="col-lg-6 text-center">
-                    <h2 class="mt-4">Reduce Buddy</h2>
+                <h3 class="mt-4">Camera</h3>
                     <img src="{{ url_for('video_feed') }}" width="80%">
                         <form method="post" action="{{ url_for('interaction_2') }}">
                             <input id="captureBtn" type="submit" class="mt-2 btn btn-dark btn-lg btn-block" value="Capture" name="click"/>
@@ -20,7 +21,7 @@
             </div>
         
             <div class="col-lg-6 text-center">
-                <h2 class="mt-4">Object Reuse Idea</h2>
+                <h3 class="mt-4">Object Reuse Idea with Last Image</h3>
                 <form method="post" action="{{ url_for('interaction_2') }}">
                     <input type="submit" class="m-2 btn btn-dark btn-lg btn-block" value="Use Last Image" name="last"/>
                 </form>

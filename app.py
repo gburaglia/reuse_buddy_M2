@@ -78,8 +78,8 @@ def update_image_folder():
      # Define the folder where images are stored
     image_folder = 'static/imgs/shots'
     # List all image filenames in the folder
-    images = os.listdir(image_folder)
-    print(images)
+    images = sorted(os.listdir(image_folder))
+
     return images
 
 def gen_frames():  # generate frame by frame from camera

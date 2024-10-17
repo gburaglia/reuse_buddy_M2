@@ -48,7 +48,7 @@ def interaction_2():
             (caption, story) = runModels()
     
     images = update_image_folder()
-    return render_template('camera.html', story=story,caption=caption)
+    return render_template('camera.html', images=images, story=story,caption=caption)
 
 def delete_all_images():
     image_folder = 'static/imgs/shots'
@@ -78,7 +78,7 @@ def update_image_folder():
      # Define the folder where images are stored
     image_folder = 'static/imgs/shots'
     # List all image filenames in the folder
-    images = os.listdir(image_folder)
+    images = sorted(os.listdir(image_folder))
     print(images)
     return images
 
@@ -117,6 +117,11 @@ def video_feed():
 def update_gallery():
     images = update_image_folder()  # Get the updated list of images
     return render_template('gallery.html', images=images)
+
+@app.route('/update_last_image')
+def update_last_image():
+    images = update_image_folder()  # Get the updated list of images
+    return render_template('image.html', images=images)
 
 
 if __name__ == '__main__':

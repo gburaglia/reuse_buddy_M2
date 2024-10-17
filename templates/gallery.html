@@ -1,19 +1,35 @@
-<div>
-    {% if images %}
-    {% for image in images %}
-        <img src="{{ url_for('display_image', filename=image) }}" alt="Image" width="80%">
-    {% endfor %}
-    {% else %}
-    <p>Capture an image to display the gallery</p>
-    {% endif %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!-- Gallery Section -->
+            {% if images %}
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Align the gallery to the left -->
+                        {% for image in images %}
+                            <img src="{{ url_for('display_image', filename=image) }}" alt="Image" width="80%" class="mb-2">
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-12">
+                        <p>Capture an image to display the gallery</p>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Delete Button Section -->
+            {% if images %}
+                <div class="row mt-3">
+                    <!-- Center the Delete button -->
+                    <div class="col-12 text-center">
+                        <form method="post" action="{{ url_for('interaction_2') }}">
+                            <input id="deleteBtn" type="submit" name="delete" value="Delete All" class="mt-2 btn btn-outline-dark btn-lg btn-block">
+                        </form>  
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
-<div class="row">
-    {% if images %}
-    <form method="post" action="{{ url_for('interaction_2') }}">
-        <input type="submit" name="delete" value="Delete All" class="mt-2 btn btn-outline-dark btn-lg btn-block">
-    </form>               
-   {% endif %}
-   
-</div>
- <!-- Only show the Delete button if there are images -->
- 

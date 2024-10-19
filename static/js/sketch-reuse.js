@@ -9,15 +9,18 @@ function setup(){
 }
 
 function draw(){
-    background(33,33,33);
-    fill(255);
+    background(255);
+   
+    fill(0);
 
     rectMode(CENTER);
+    textAlign(LEFT);
 
-    story_text = divData.dataset.story
+    story_text = divData.dataset.story;
 
     textSize(18);
     textWrap(WORD);
+
     text(story_text, width/2,height/2, width-100, height-100);
     
     

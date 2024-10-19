@@ -20,20 +20,6 @@ def index():
     return render_template('about.html', active='index')
 
 @app.route('/milestone1', methods=['GET','POST'])
-def interaction_1():
-    if request.method =='POST':
-        f = request.files["imgFile"]
-        file_name = secure_filename(f.filename)
-        cwd = os.getcwd()
-        upld_path = cwd+'/static/imgs/' + file_name
-        f.save(upld_path)
-        img_path = 'imgs/'+file_name
-        (caption, story) = runModels(upld_path)
-        return render_template('milestone1.html', active='interaction_1',imgPath = img_path, story=story,caption=caption)
-    else:
-        return render_template('milestone1.html', active='interaction_1')
-
-@app.route('/camera', methods=['GET','POST'])
 def interaction_2():
     story=""
     caption=""
@@ -48,7 +34,7 @@ def interaction_2():
             (caption, story) = runModels()
     
     images = update_image_folder()
-    return render_template('camera.html', images=images, story=story,caption=caption)
+    return render_template('milestone1.html', images= images, story=story,caption=caption)
 
 def delete_all_images():
     image_folder = 'static/imgs/shots'
@@ -72,14 +58,14 @@ try:
 except OSError as error:
     pass
 
-camera = cv2.VideoCapture(0) #0 is computer, 1 is connected phone
+camera = cv2.VideoCapture(1) #0 is computer, 1 is connected phone
 
 def update_image_folder():
      # Define the folder where images are stored
     image_folder = 'static/imgs/shots'
     # List all image filenames in the folder
-    images = os.listdir(image_folder)
-    print(images)
+    images = sorted(os.listdir(image_folder))
+
     return images
 
 def gen_frames():  # generate frame by frame from camera
@@ -112,6 +98,17 @@ def gen_frames():  # generate frame by frame from camera
 @app.route('/video_feed')
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/update_gallery')
+def update_gallery():
+    images = update_image_folder()  # Get the updated list of images
+    return render_template('gallery.html', images=images)
+
+@app.route('/update_last_image')
+def update_last_image():
+    images = update_image_folder()  # Get the updated list of images
+    return render_template('image.html', images=images)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

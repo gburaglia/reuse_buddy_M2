@@ -19,7 +19,7 @@ def textGeneration(msg):
     msg_list. append(msg)
 
     response = client.chat.completions.create(
-        model= "gpt-4o-mini", #"gpt-4o"
+        model= "gpt-4o",
         temperature=0.2,
         max_completion_tokens = 200, 
         messages = msg_list

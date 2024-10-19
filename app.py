@@ -20,20 +20,6 @@ def index():
     return render_template('about.html', active='index')
 
 @app.route('/milestone1', methods=['GET','POST'])
-def interaction_1():
-    if request.method =='POST':
-        f = request.files["imgFile"]
-        file_name = secure_filename(f.filename)
-        cwd = os.getcwd()
-        upld_path = cwd+'/static/imgs/' + file_name
-        f.save(upld_path)
-        img_path = 'imgs/'+file_name
-        (caption, story) = runModels(upld_path)
-        return render_template('milestone1.html', active='interaction_1',imgPath = img_path, story=story,caption=caption)
-    else:
-        return render_template('milestone1.html', active='interaction_1')
-
-@app.route('/camera', methods=['GET','POST'])
 def interaction_2():
     story=""
     caption=""
@@ -48,7 +34,7 @@ def interaction_2():
             (caption, story) = runModels()
     
     images = update_image_folder()
-    return render_template('camera.html', images= images, story=story,caption=caption)
+    return render_template('milestone1.html', images= images, story=story,caption=caption)
 
 def delete_all_images():
     image_folder = 'static/imgs/shots'

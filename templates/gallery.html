@@ -1,5 +1,5 @@
 <div class="container">
-    <div>
+    <div class="gallery text-center">
             {% if images %}
             {% for image in images %}
                 <img src="{{ url_for('display_image', filename=image) }}" alt="Image" width="80%">

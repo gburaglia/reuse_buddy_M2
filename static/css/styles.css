@@ -1,7 +1,9 @@
 .gallery {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px; /* Space between images */
+    gap: 10px;
+    justify-content: center; /* Horizontally centers the images */
+    align-items: center; /* Vertically aligns items if there's extra space */
 }
 
 /* Style for each image */

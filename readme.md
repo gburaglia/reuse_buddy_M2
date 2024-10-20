@@ -11,3 +11,12 @@ OpenAI model: gpt-4o
 
 # Demo Video: 
 link
+
+# Instructions: 
+Once your virtual environment is active: `pip install -r requirements.txt`
+Create an ".env" file to store all the environment variables for Flask, Huggingface, OpenAI & Langchain. Copy this code into the ".env" file. And complete with your hugging face and openai keys.
+    - `FLASK_APP = app`
+    - `FLASK_RUN_PORT = 8080`
+    - `FLASK_DEBUG = True`
+    - `HF_TOKEN = ""`
+    - `OPENAI_API_KEY = ""`

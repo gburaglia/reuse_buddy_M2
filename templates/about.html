@@ -6,8 +6,12 @@
       <h1>Introduction:</h1>
       <p>Welcome to Reuse Buddy a creative companion to help you think of ways to reuse common household objects. You first, take a picture of your object, if is displayed in the gallery for you to view, if you are not satisfied with the image you can continue taking pictures, once you are satisfied, the primary AI model will identify the object, and the secondary AI model comes up with a creative way to reuse the object detected.</p>
       <p>Go on, give it a try! Click the Reuse Buddy tab.</p>
-      <h3>Technical Specifications:</h3>
-      <p>This is a flask app that integrates P5.js, a generative AI object detection model from Hugging Face, and a language model from OpenAI. </p>
+      <div class="gallery demo">
+        <img src="{{ url_for('display_image', filename='demo_snapshot.png') }}" alt="Image" width="50%">
+
+      </div>
+      <h3 class="col-12 mt-3">Technical Specifications:</h3>
+      <p>This is a flask app that integrates P5.js, a detection transformer (DETR) AI model for object detection from Hugging Face, and a language model from OpenAI. </p>
     </div>
   </div>
 </div>

@@ -49,8 +49,12 @@ def delete_all_images():
 
 @app.route('/display/<filename>')
 def display_image(filename):
-    print('display_image filename: ' + filename)
-    return redirect(url_for('static', filename='imgs/shots/' + filename))
+    print(filename)
+    if "demo" in filename:
+        print("Yes")
+        return redirect(url_for('static', filename='imgs/' + filename))
+    else:
+        return redirect(url_for('static', filename='imgs/shots/' + filename))
 
 #make shots directory to save pics
 try:

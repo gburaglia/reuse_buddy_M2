@@ -49,7 +49,10 @@ def interaction_3():
         elif request.form.get('delete') == 'Delete All':
             delete_all_images()
         elif request.form.get('last') == 'Use Last Image':
-            (caption, story) = runModels2()
+            selected_option = request.form.get('selectedOption')
+            print(selected_option)
+            story = "Nonsense" + str(selected_option)
+            #(caption, story) = runModels2(selected_option)
     
     images = update_image_folder()
 

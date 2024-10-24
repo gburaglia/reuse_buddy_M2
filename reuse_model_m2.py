@@ -37,9 +37,9 @@ def object_detection(imgUrl):
 def societal_definition(type):
     society_dict = {
         "Growing": "Focused on expansion, development, and continued acceleration.",
-        "Collapsing": "Focused on the decline or breakdown of society, potentially leading to a simpler society.",
+        "Collapsing": "Focused on the decline or breakdown of society, leading to a simpler society.",
         "Controlling": "Focused on managing and controlling societal excesses to preserve resources and maintain order, guided by various values and authoritarian control.",
-        "Transforming": "Focused on embracing radical changes that reshapes humanity and the environment, potentially leading to a posthuman future."
+        "Transforming": "Focused on embracing radical changes that reshapes humanity and the environment, leading to a posthuman future."
     }
     return society_dict.get(type,"")
 

@@ -41,7 +41,9 @@ def interaction_2():
 def interaction_3():
     story=""
     caption=""
+    selected_option=""
     global camera
+    images = update_image_folder()
     if request.method == 'POST':
         if request.form.get('click') == 'Capture':
             global capture
@@ -50,9 +52,13 @@ def interaction_3():
             delete_all_images()
         elif request.form.get('last') == 'Use Last Image':
             selected_option = request.form.get('selectedOption')
-            print(selected_option)
-            story = "Nonsense" + str(selected_option)
-            #(caption, story) = runModels2(selected_option)
+            if (images):
+                if(selected_option):
+                    (caption, story) = runModels2(selected_option)
+                else:
+                    story = "Error: Select a type of future first!"
+            else:
+                story = "Error: No image submitted, capture a picture first!"
     
     images = update_image_folder()
 
@@ -130,6 +136,11 @@ def video_feed():
 def update_gallery():
     images = update_image_folder()  # Get the updated list of images
     return render_template('gallery.html', images=images)
+
+@app.route('/update_gallery2')
+def update_gallery2():
+    images = update_image_folder()  # Get the updated list of images
+    return render_template('gallery2.html', images=images)
 
 @app.route('/update_last_image')
 def update_last_image():

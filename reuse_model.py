@@ -53,7 +53,7 @@ def runModels():
     if first_object == "none":
         reuse_idea = "Error: No object recognized"
     elif first_object == "no image":
-        reuse_idea = "Error: No image submitted, take a picture first!"
+        reuse_idea = "Error: No image submitted, capture a picture first!"
     else:
         msg = {"role": "user", "content": first_object}
         reuse_idea = textGeneration(msg)

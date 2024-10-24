@@ -25,6 +25,9 @@
                 <div id="last-image-div">
 
                 </div>
+                <form method="post" action="{{ url_for('interaction_2') }}">
+                    <input type="submit" class="m-2 btn btn-dark btn-lg btn-block" value="Use Last Image" name="last"/>
+                </form>
 
                 <div class="d-flex justify-content-center text-center" id="canvas-div" data-story="{% if story %} {{story}} {% endif%}">
             </div>

@@ -27,12 +27,12 @@
                         <div class="dropdown mb-2">
                             In a society that is...
                             <button class="dropdown-toggle-custom dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                one of Dator's 4 futures
+                                select type of future
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="#" onclick="selectOption(this, event)">Growing</a>
                                 <a class="dropdown-item" href="#" onclick="selectOption(this, event)">Collapsing</a>
-                                <a class="dropdown-item" href="#" onclick="selectOption(this, event)">Disciplining</a>
+                                <a class="dropdown-item" href="#" onclick="selectOption(this, event)">Controlling</a>
                                 <a class="dropdown-item" href="#" onclick="selectOption(this, event)">Transforming</a>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
     <script>
         // Function to fetch the updated gallery and inject into the gallery-div
         function updateGallery() {
-            fetch('/update_gallery')
+            fetch('/update_gallery2')
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('gallery-div').innerHTML = data;

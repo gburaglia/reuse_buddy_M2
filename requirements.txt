@@ -6,3 +6,7 @@ pillow
 transformers
 openai
 opencv-python
+langchain-openai
+langchain_community
+langchain_chroma
+pandas

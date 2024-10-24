@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
 import os
 from reuse_model import runModels
+from reuse_model_m2 import runModels2
 import cv2
 import datetime
 
@@ -35,6 +36,25 @@ def interaction_2():
     
     images = update_image_folder()
     return render_template('milestone1.html', images= images, story=story,caption=caption)
+
+@app.route('/milestone2', methods=['GET','POST'])
+def interaction_3():
+    story=""
+    caption=""
+    global camera
+    if request.method == 'POST':
+        if request.form.get('click') == 'Capture':
+            global capture
+            capture=1
+        elif request.form.get('delete') == 'Delete All':
+            delete_all_images()
+        elif request.form.get('last') == 'Use Last Image':
+            (caption, story) = runModels2()
+    
+    images = update_image_folder()
+
+    return render_template('milestone2.html', images= images, story=story,caption=caption)
+
 
 def delete_all_images():
     image_folder = 'static/imgs/shots'
@@ -112,7 +132,6 @@ def update_gallery():
 def update_last_image():
     images = update_image_folder()  # Get the updated list of images
     return render_template('image.html', images=images)
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

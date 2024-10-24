@@ -42,6 +42,9 @@ def interaction_3():
     story=""
     caption=""
     global camera
+    global selected_future
+    images = update_image_folder()
+
     if request.method == 'POST':
         if request.form.get('click') == 'Capture':
             global capture
@@ -49,7 +52,15 @@ def interaction_3():
         elif request.form.get('delete') == 'Delete All':
             delete_all_images()
         elif request.form.get('last') == 'Use Last Image':
-            (caption, story) = runModels2()
+            selected_future = request.form.get('selectedOption')
+            print(selected_future)
+            if(images):
+                if(selected_future!= None):
+                    (caption, story) = runModels2(selected_future)
+                else:
+                    story = "Use the drop down to select one of Dator's 4 futures first."
+            else:
+                story="Use the Capture button to take a picture first."
     
     images = update_image_folder()
 
@@ -131,6 +142,9 @@ def update_gallery():
 @app.route('/update_last_image')
 def update_last_image():
     images = update_image_folder()  # Get the updated list of images
+    if images:
+        global has_content
+        has_content = True
     return render_template('image.html', images=images)
 
 if __name__ == '__main__':

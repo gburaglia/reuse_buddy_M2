@@ -1,3 +1,4 @@
 .env
 .venvAI4DMLab
 static/imgs/shots
+chroma_db

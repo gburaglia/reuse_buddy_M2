@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from langchain_openai import OpenAIEmbeddings #for converting chunks into embeddings
+from langchain_chroma import Chroma #database for stroring the embeddings
 import os
 
 def firstObject():
@@ -43,6 +45,15 @@ def societal_definition(type):
     }
     return society_dict.get(type,"")
 
+def getRetriever(dir):
+    """
+    dir is the directory of the vector DB
+    """
+    embeddings_used = OpenAIEmbeddings(model="text-embedding-3-small")
+    vectorDB = Chroma(persist_directory=dir,embedding_function=embeddings_used)
+    retriever = vectorDB.as_retriever(search_type="similarity", search_kwargs={"k": 3})
+    return retriever
+
 def textGeneration_langChain(msg,type):
     """
     msg is the scenario for the story from the pic (hugging face model output);
@@ -81,7 +92,55 @@ def textGeneration_langChain(msg,type):
 
     return out_message
 
-    
+def textGeneration_langChain_RAG(msg,type, retrieverDir):
+    """
+    msg is the scenario for the story from the pic (hugging face model output);
+    type is the sustainability suggestion mode - Growing, Collapsing, Controlling, Transforming
+    """
+    llm = ChatOpenAI(
+        model="gpt-4o",
+        temperature=0.2,
+        max_tokens=200,
+        timeout=None,
+        max_retries=2
+    )
+
+    defintion = societal_definition(type)
+
+    system_prompt = (
+        "You are an advocate of sustainability. With the object given, come up with a way to reuse this object in the future. From the viewpoint of a society that is {suggestion_mode}. A {suggestion_mode} society is defined as one that is: {societal_definition}."
+        "Use the following pieces of retrieved context to generate sustainable, upcycled, object reuse ideas. "
+        "Keep the idea to less than 100 words."
+        "\n\n"
+        "{context}"
+    )
+
+
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system", 
+                system_prompt
+            ),
+            (
+                "human", 
+                "{scenario_lang}"
+            ),
+        ]
+    )
+
+    rag_chain = prompt | llm | StrOutputParser()
+
+    retriever = getRetriever(retrieverDir)
+
+    out_message = rag_chain.invoke({
+            "context":retriever,
+            "suggestion_mode" : type,
+            "scenario_lang" : msg,
+            "societal_definition": defintion,
+        })
+
+    return out_message
 
 def runModels2(type):
     first_object = firstObject()
@@ -91,7 +150,9 @@ def runModels2(type):
     elif first_object == "no image":
         reuse_idea = "Error: No image submitted, take a picture first!"
     else:
-        reuse_idea = textGeneration_langChain(first_object,type)
+        cwd = os.getcwd()
+        db_dir = os.path.join(cwd,"chroma_db")
+        reuse_idea = textGeneration_langChain_RAG(first_object,type,db_dir)
 
 
     return([first_object,reuse_idea])

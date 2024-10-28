@@ -62,7 +62,7 @@ def interaction_3():
     
     images = update_image_folder()
 
-    return render_template('milestone2.html', images= images, story=story,caption=caption)
+    return render_template('milestone2.html', images= images, story=story,caption=caption,type=selected_option)
 
 
 def delete_all_images():

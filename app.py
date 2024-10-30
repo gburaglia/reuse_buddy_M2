@@ -41,18 +41,19 @@ def interaction_2():
 def interaction_3():
     story=""
     caption=""
-    selected_option=""
+    selected_option = request.form.get('selected_option')
     global camera
     images = update_image_folder()
     if request.method == 'POST':
         if request.form.get('click') == 'Capture':
             global capture
             capture=1
+            
         elif request.form.get('delete') == 'Delete All':
             delete_all_images()
         elif request.form.get('last') == 'Use Last Image':
-            selected_option = request.form.get('selectedOption')
             if (images):
+                selected_option = request.form.get('selected_option')
                 if(selected_option):
                     (caption, story) = runModels2(selected_option)
                 else:
@@ -62,7 +63,7 @@ def interaction_3():
     
     images = update_image_folder()
 
-    return render_template('milestone2.html', images= images, story=story,caption=caption,type=selected_option)
+    return render_template('milestone2.html', images= images, story=story,caption=caption,selected_option=selected_option)
 
 
 def delete_all_images():

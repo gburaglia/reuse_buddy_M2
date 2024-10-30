@@ -1,9 +1,12 @@
-let divData, story_text, speech, startBtn, stopBtn;
-let bgImage, maskedImage;
+let divData, story_text, speech, startBtn, stopBtn, society_type, mask;
+let bgImage, maskedImage, bgImage_collapsing, bgImage_controlling, bgImage_transforming,bgImage_growing;
 
 function preload() {
-    // Load the background image
-    bgImage = loadImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpTnDS1YjFxlQWvlh2RIMA_HvO-NwaB45qgw&s');
+    // Load the background images from AWS S3
+    bgImage_growing = loadImage('https://ai4dm.s3.us-east-1.amazonaws.com/collapsing.jpeg');
+    bgImage_collapsing = loadImage('https://ai4dm.s3.us-east-1.amazonaws.com/collapsing.jpeg');
+    bgImage_controlling = loadImage('https://ai4dm.s3.us-east-1.amazonaws.com/controlling.jpeg');
+    bgImage_transforming = loadImage('https://ai4dm.s3.us-east-1.amazonaws.com/transforming.jpeg');
 }
 
 function setup() {
@@ -11,38 +14,58 @@ function setup() {
     c.parent('canvas-div');
     divData = document.querySelector("#canvas-div");
 
-    //c.parent('type-div');
-    divtype = document.querySelector("#type-div");
+    divType = document.querySelector("#type-div");
 
     // Create a mask with rounded corners for the background image
-    let mask = createGraphics(width, height);
+    mask = createGraphics(width, height);
     mask.fill(255);
     mask.noStroke();
     mask.rectMode(CENTER);
     mask.rect(width / 2, height / 2, width - 40, height - 40, 30); // Adjust padding and corner radius
-
-    // Apply the mask to the background image
-    maskedImage = bgImage.get(); // Duplicate the image
-    maskedImage.mask(mask); // Apply the mask
 }
 
 function draw() {
     background(255);
 
-    // Set tint for the image opacity (30% opacity)
+    // Set tint for the image opacity (less than 30% opacity)
     tint(255, 65);
-
-    // Draw the masked image with rounded corners
-    image(maskedImage, 20, 20, width - 40, height - 40);
-
-    // Display story text closer to the top of the image
+    
     fill(0);
-    textAlign(LEFT, TOP); // Center text horizontally and align to top
+    textAlign(LEFT, TOP); // Center text left and align to top
     textSize(18);
     textWrap(WORD);
     story_text = divData.dataset.story;
-    society_type = divtype.dataset.type;
-    print(society_type);
-    text(story_text, 60, 60, width - 110, height - 100);}
+    society_type = divType.dataset.type;
+    society_type = trim(society_type);
+    display_image();
+    text(story_text, 60, 60, width - 110, height - 100);
+    }
+
+function selectImage(){
+    //Switch statement to display correct image based on future society type
+    switch (society_type) {
+        case "Growing":
+          bgImage = bgImage_growing;
+          break;
+        case "Collapsing":
+          bgImage = bgImage_collapsing;
+          break;
+        case "Controlling":
+          bgImage = bgImage_controlling;
+          break;
+        case "Transforming":
+          bgImage = bgImage_transforming; 
+          break;
+    }
+}
+
+function display_image(){
+    selectImage();
+    //Draw the masked image with rounded corners
+    //Apply the mask to the background image selected
+     maskedImage = bgImage.get(); //Duplicate the image
+     maskedImage.mask(mask); //Apply the mask
+    image(maskedImage, 20, 20, width - 40, height - 40);
+}
 
 

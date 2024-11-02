@@ -106,7 +106,6 @@ def gen_frames():  # generate frame by frame from camera
     global capture
     while True:
         success, frame = camera.read() 
-        
         if success:
             if(capture):
                 capture=0
@@ -115,7 +114,6 @@ def gen_frames():  # generate frame by frame from camera
                 p = p.replace(" ","_")
                 cv2.imwrite(p, frame)
                 update_image_folder()
-                
             try:
                 ret, buffer = cv2.imencode('.jpg', cv2.flip(frame,1))
                 frame = buffer.tobytes()

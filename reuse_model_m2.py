@@ -56,7 +56,7 @@ def getRetriever(dir):
 
 def textGeneration_langChain(msg,type):
     """
-    msg is the scenario for the story from the pic (hugging face model output);
+    msg is the object detected for the object reuse idea (hugging face model output);
     type is the sustainability suggestion mode - Growing, Collapsing, Controlling, Transforming
     """
     llm = ChatOpenAI(
@@ -94,7 +94,7 @@ def textGeneration_langChain(msg,type):
 
 def textGeneration_langChain_RAG(msg,type, retrieverDir):
     """
-    msg is the scenario for the story from the pic (hugging face model output);
+    msg is the object detected for the object reuse idea (hugging face model output);
     type is the sustainability suggestion mode - Growing, Collapsing, Controlling, Transforming
     """
     llm = ChatOpenAI(

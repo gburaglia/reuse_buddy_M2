@@ -1,7 +1,5 @@
     <div class="gallery text-center">
             {% if images %}
-           
                 <img src="{{ url_for('display_image', filename=images[-1]) }}" alt="Image" width="80%">
             {% endif %}
-
     </div>

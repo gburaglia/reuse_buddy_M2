@@ -36,24 +36,17 @@
                                 <a class="dropdown-item" href="#" onclick="selectOption(this, event)">Transforming</a>
                             </div>
                         </div>
-                        <!-- Hidden Input to store the selected value -->
                     <div id="last-image-div">
-
                     </div>
                     <div>
-                
                         <form method="post" action="{{ url_for('interaction_3') }}">
                             <input type="hidden" name="selected_option" id="selected_option" value=""/>
                             <input type="submit" class="m-2 btn btn-dark btn-lg btn-block" value="Use Last Image" name="last"/>
                         </form>
-                
-                    </div>
-
-                
+                    </div> 
                 </div>
                 <div>
-                    
-                      <div class="d-flex justify-content-center text-center" id="canvas-div" data-story="{% if story %} {{story}} {% endif%}">
+                    <div class="d-flex justify-content-center text-center" id="canvas-div" data-story="{% if story %} {{story}} {% endif%}">
                     </div>
                     <div class="d-flex justify-content-center text-center" id="type-div" data-type="{% if selected_option %} {{selected_option}} {% endif%}">
                     </div>
@@ -79,32 +72,24 @@
                 .catch(error => console.error('Error updating last image:', error));
             }
         // Call the updateGallery function every few seconds
-        setInterval(updateGallery, 1000); // Adjust the interval time as needed
+        setInterval(updateGallery, 1000);
     </script>
 <script src="js/sketch-reuse-m2.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <script>
+    // Function to store value selected in dropdown
     function selectOption(element, event) {
-        // Prevent the default anchor behavior
         event.preventDefault();
-    
         // Get the text of the selected option
         var selectedText = element.textContent;
-    
-        // Update the button text with the selected option
+        // Update the dropdown text with the selected option
         var dropdownButton = document.getElementById('dropdownMenuButton');
         dropdownButton.textContent = selectedText;
-    
         // Set the value of the hidden input field
         document.getElementById('selected_option').value = selectedText;
-        
-        // Log to verify it's setting the value correctly
-        console.log("Selected option:", selectedText);
-        console.log("Hidden input value:", document.getElementById('selected_option').value);
     }
-    
 </script>
 </body>
 {%endblock%}

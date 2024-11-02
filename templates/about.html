@@ -1,18 +1,51 @@
 {% extends "base.html" %}
 {%block content%}
+
 <div class="container">
   <div class="row">
-    <div class="col-12 mt-3">
-      <h1>Introduction:</h1>
+    <div class="col-12">
+      <h1 class="mt-4 text-center">Recycle Buddy</h1>
       <p>Welcome to Reuse Buddy a creative companion to help you think of ways to reuse common household objects. You first, take a picture of your object, if is displayed in the gallery for you to view, if you are not satisfied with the image you can continue taking pictures, once you are satisfied, the primary AI model will identify the object, and the secondary AI model comes up with a creative way to reuse the object detected.</p>
-      <p>Go on, give it a try! Click the Reuse Buddy tab.</p>
-      <div class="gallery demo">
-        <img src="{{ url_for('display_image', filename='demo_snapshot.png') }}" alt="Image" width="50%">
-
-      </div>
-      <h3 class="col-12 mt-3">Technical Specifications:</h3>
-      <p>This is a flask app that integrates P5.js, a detection transformer (DETR) AI model for object detection from Hugging Face, and a language model from OpenAI. </p>
+      <p>Go on, give it a try!</p>
     </div>
+  </div>
+  <div class="row justify-content-center">
+
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center">Milestone 1: Initial AI Integration</h2>
+          <div class="text-center">
+            <img src="{{ url_for('display_image', filename='demo_snapshot.png') }}" alt="Image" width="50%">
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Live Images:</strong> Captures images from the camera feed through OpenCV, displays them in the gallery, and indicates the last image taken.</li>
+            <li class="list-group-item"><strong>Object Identification:</strong> Leverages a detection transformer (DETR) AI model for object detection from Hugging Face. </li>
+            <li class="list-group-item"class="list-group-item"><strong>Reuse Idea:</strong> Uses OpenAI's GPT-4o to envision creative upcycling solutions and displays the textual idea with P5.js.</li>
+            <li class="list-group-item"><strong>Framework:</strong> Flask app styled with Bootstrap for a robust and responsive user experience.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center">Milestone 2: Enhancements</h2>
+          <div class="text-center">
+            <img src="{{ url_for('display_image', filename='demo_snapshot.png') }}" alt="Image" width="50%">
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Interactivity:</strong> Improves customization by providing a user controlled dropdown with 4 types of futures.</li>
+            <li class="list-group-item"><strong>Prompt Templates:</strong> Enhances the idea quality with structured prompts that provided extra context.</li>
+            <li class="list-group-item"><strong>RAG:</strong> Customizes output ideas by incorporating RAG capabilities from a creative upcycling dataset.</li>
+            <li class="list-group-item"><strong>Visualization Backgrounds:</strong> Background imagery on the P5.js canvas changes based on the type of future selected.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </div>
 {%endblock%}

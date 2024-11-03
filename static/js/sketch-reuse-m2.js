@@ -3,7 +3,7 @@ let bgImage, maskedImage, bgImage_collapsing, bgImage_controlling, bgImage_trans
 
 function preload() {
     // Load the background images from AWS S3
-    bgImage_growing = loadImage('https://ai4dm.s3.us-east-1.amazonaws.com/collapsing.jpeg');
+    bgImage_growing = loadImage('https://ai4dm.s3.us-east-1.amazonaws.com/growing.jpeg');
     bgImage_collapsing = loadImage('https://ai4dm.s3.us-east-1.amazonaws.com/collapsing.jpeg');
     bgImage_controlling = loadImage('https://ai4dm.s3.us-east-1.amazonaws.com/controlling.jpeg');
     bgImage_transforming = loadImage('https://ai4dm.s3.us-east-1.amazonaws.com/transforming.jpeg');
